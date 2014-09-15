@@ -18,6 +18,8 @@ $(document).ready(function(){
 
 });
 
+//this is your array. found this on stack overflow
+//what the hell is going on here!?!?!?!
 Array.prototype.shuffle = function (){
     var i = this.length, j, temp;
     if ( i == 0 ) return;
@@ -29,16 +31,37 @@ Array.prototype.shuffle = function (){
     }
 };
 
+
+//Trying another shuffle
+var cardMatches = ['card0','card1','card2','card3','card4','card5']
+
+// //This explains the Array, Prototype Shuffle above, kind of.
+// function shuffle(array){
+// 	var currentIndex = array.length, temporaryValue, randomIndex;
+
+// 	while (0 !== currentIndex) {
+
+// 		randomIndex = Math.floor(Math.random() * currentIndex);
+// 		currentIndex -= 1;
+
+// 		temporaryValue = array[currentIndex];
+// 		array[currentIndex] = array[randomIndex];
+// 		array[randomIndex] = temporaryValue;
+// 	}
+// 	return array;
+// }
+
 function buildImages(){
-	for(i=0;i<maxPairs;i++){
+	for(i=0;i<6;i++){
 //There are two imgFiles.Push because you need two cards to match
+//Push method adds new items to the end of an array
 		imgFiles.push("card"+i+".jpg");
 		imgFiles.push("card"+i+".jpg");
 	}
 }
 
 function buildRows(){
-	for(i=0; i<maxRows; i++){
+	for(i=0; i<3; i++){
 //The append method inserts the content as the last child of each 
 //element in the JQuery collection
 //Prepend does the same thing except adds it as the first. 
