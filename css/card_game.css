@@ -1,0 +1,12 @@
+.cards {
+	border: 4px solid black;
+	height: 268px;
+	width: 188px;
+	margin: 0 auto;
+	float: left;
+}
+
+.buttons {
+	position: relative;
+	left: 22%;
+}
