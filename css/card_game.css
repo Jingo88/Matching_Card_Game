@@ -6,6 +6,23 @@
 	float: left;
 }
 
+/*card measures 186x271
+3 rows of four
+game container is 744+margins*/
+
+.wholegame {
+	margin: 0 auto;
+	width: 800px;
+	height: 100%;
+	background-color: rgba(200,200,200,1);
+	display: table;
+	transition: all .5s;
+}
+
+.cardrow {
+	display: table-row;
+}
+
 .buttons {
 	position: relative;
 	left: 22%;
