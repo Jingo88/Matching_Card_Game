@@ -11,19 +11,44 @@
 game container is 744+margins*/
 
 .wholegame {
-	margin: 0 auto;
-	width: 800px;
+	width: 50%;
 	height: 100%;
 	background-color: rgba(200,200,200,1);
-	display: table;
+	display: block;
 	transition: all .5s;
-}
-
-.cardrow {
-	display: table-row;
+	margin: 0 auto;
+	overflow: hidden;
 }
 
 .buttons {
 	position: relative;
 	left: 22%;
+}
+
+.card-container {
+/*	-webkit-perspective: 1000;*/
+/*table-cell makes the element behave like a <td>*/
+	float: left;
+}
+
+.card {
+	cursor: pointer;
+	margin:4px 4px;
+	border: 2px solid blue;
+	/* flip speed */
+/*	-webkit-transition: 0.1s;
+	-webkit-transform-style: preserve-3d;*/
+	position: relative;
+	width:186px;
+	height:271px;
+}
+
+.card, .back {
+	background-image: "../img/card_back.jpg";
+/*	OR
+	background: ur('../img/card_back.jpg');*/
+}
+
+.card-container .flipped {
+	-webkit-transform: rotateY(180deg);
 }
