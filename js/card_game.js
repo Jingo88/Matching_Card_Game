@@ -34,54 +34,32 @@ Array.prototype.shuffle = function() {
 	return this;
 }
 
-var cardMatches = ['card0','card1','card2','card3','card4','card5'];
+// var cardMatches = ['card0','card1','card2','card3','card4','card5'];
+var cardMatches = ['img/card0.jpg','img/card1.jpg','img/card2.jpg',
+				'img/card3.jpg','img/card4.jpg','img/card5.jpg',];
 var result = cardMatches.shuffle();
 console.log(result);
 //YEAH THIS FUCKING WORKS!!!!
-
+//lets try changing the array to be linked to the images in the img folder
 
 
 var imgFiles = [];
 var maxColumns = 4;
-var maxPairs = 6;
-var maxRows = 3; 
 var imageFilename = "card";
 
 
 function buildImages(){
 	for(i=0;i<6;i++){
-//There are two imgFiles.Push because you need two cards to match
-//Push method adds new items to the end of an array
 		imgFiles.push("card"+i+".jpg");
 	}
 }
-
-
-
-// function buildRows(){
-	// for(i=0; i<3; i++){
-//The append method inserts the content as the last child of each 
-//element in the JQuery collection
-//Prepend does the same thing except adds it as the first. 
-		// $(".wholegame").append("<div class="+"'cardrow'"+">");
-	// }
-// }
-
-
-// function randomizeCards(){
-// //where does this "function(index)" pull from?
-// 	// $(".card_back img").each(function(index){
-// 		$(this).attr("src",".../img/"+imgFiles[index]);
-// 	// }
-// }
-// // );
-// // }
 
 function addCards(){
 	imgFiles.shuffle();
 	console.log("image array ("+imgFiles.length+" items) /// contents= "+imgFiles.toString());
 	
 	for(i=0;i<12;i++) {
+//this is a ternary operator
 		var cardNumber = i < 6 ? i : i % 6;
 		var cardSet = '<div class="card-container"><div class="card" data-which=""'+i+'"><div class="front"></div><div class="back"><img src="'+'img/'+imgFiles[cardNumber]+'"></div></div></div>';
 		$('.wholegame').append(cardSet);
@@ -89,7 +67,6 @@ function addCards(){
 	}	
 
 }
-
 
 //can I put all of the above into this one function? 
 function buildCards(){
