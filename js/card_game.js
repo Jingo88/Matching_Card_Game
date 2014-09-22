@@ -42,38 +42,35 @@ console.log(result);
 //YEAH THIS FUCKING WORKS!!!!
 //lets try changing the array to be linked to the images in the img folder
 
+//can I use the splice method to double up the card count?
 
 var imgFiles = [];
-var maxColumns = 4;
 var imageFilename = "card";
 
-
-function buildImages(){
+function addCards(){
 	for(i=0;i<6;i++){
 		imgFiles.push("card"+i+".jpg");
-	}
-}
+	};
 
-function addCards(){
+	
+
 	imgFiles.shuffle();
 	console.log("image array ("+imgFiles.length+" items) /// contents= "+imgFiles.toString());
 	
+
 	for(i=0;i<12;i++) {
 //this is a ternary operator
+//what does the % mean in this operator?
 		var cardNumber = i < 6 ? i : i % 6;
 		var cardSet = '<div class="card-container"><div class="card" data-which=""'+i+'"><div class="front"></div><div class="back"><img src="'+'img/'+imgFiles[cardNumber]+'"></div></div></div>';
 		$('.wholegame').append(cardSet);
 		console.log("HTML appended: "+cardSet);
 	}	
-
 }
 
-//can I put all of the above into this one function? 
+//keeping this right now, assuming I will have to do more in the future. 
 function buildCards(){
-	buildImages();
-	// buildRows();
 	addCards();
-	// randomizeCards();
 }
 
 
