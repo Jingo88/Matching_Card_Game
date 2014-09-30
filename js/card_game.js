@@ -51,18 +51,11 @@ Array.prototype.shuffle = function() {
 }
 
 //DO NOT NEED THEBELOW ARRAY
-
-//double up the array? this seems like the easier way out
 // var cardMatches = ['img/card0.jpg','img/card1.jpg','img/card2.jpg',
 // 				'img/card3.jpg','img/card4.jpg','img/card5.jpg'];
 // var result = cardMatches.shuffle();
 // console.log(result);
 //YEAH THIS FUCKING WORKS!!!!
-//lets try changing the array to be linked to the images in the img folder
-
-
-
-//can I use the splice method to double up the card count?
 
 
 //maybe use a while loop to determine there are no more than 2 of any card
@@ -79,8 +72,9 @@ var imgFiles = [];
 
 function addCards(){
 
-	imgFiles.shuffle();
-	console.log("image array ("+imgFiles.length+" items) /// contents= "+imgFiles.toString());
+//I don't need these two commented lines below right?
+	// imgFiles.shuffle();
+	// console.log("image array ("+imgFiles.length+" items) /// contents= "+imgFiles.toString());
 
 //this loop will add the number of cards up to "i"
 	for(i=0;i<12;i++) {
@@ -89,11 +83,10 @@ function addCards(){
 //the % gives you the remainder after a divided equation
 		//var cardNumber = i < 6 ? i : i % 6;
 		
-		var cardNumber = randomizeCard();
 		//buildingArr.push(cardNumber);
 //will be the result of the number of the function you just wrote at the bottom
 
-
+		var cardNumber = randomizeCard();
 		var cardSet = '<div class="card-container"><div class="card"><div class="front"></div><div class="back"><img src="'+'img/card'+cardNumber+'.jpg"></div></div></div>';
 		
 		$('.wholegame').append(cardSet);
@@ -128,35 +121,43 @@ function buildCards(){
 	cardFlip();
 }
 
-/*
-
-	Create an array of cards
-	Create a "for" loop that runs as many times as there are cards
-	In each iteration, create a random number and get the image out of the array
-	Append the new card to the html string
-	Append the full html string to the dom after the loop is finished
-
-*/
-
 var buildingArr = []
-console.log(buildingArr);
+console.log(buildingArr+'haha');
+
+var numCards = 6
+
+var results = [];
 
 function randomizeCard(){
 	
-	var randomNumber = Math.floor(Math.random()*6);
+	for(var i=0; i<12; i++) {
+		//if ($.inArray(randomNumber, buildingArr) > 0) {
+			//randomizeCard();
 
-//how do I check if the array has the number twice already?
-//use $.inArray(value,array)? 
-
-
-	if ($.inArray(randomNumber, buildingArr) > 0) {
-		randomizeCard();
-
-//(randomeNumber is in buildingArr twice than run function randomizeCard again) {
-	} else {
-		(buildingArr.push(randomNumber));
-	}
+//make an if statement somewhere (NOT in the for loop), if the number is found in the sorted array twice
+//then run var randomnumber again
+//else push the randomNumber into the sorted_arr
+//once the sorted_arr reaches it's max length of 12, then shuffle it again and
+//call it buildingArr or another array?
+		var randomNumber = Math.floor(Math.random()*6);
+			console.log(randomNumber+'nooooo');
+			(buildingArr.push(randomNumber));
+		}
+		sort();
 }
+
+//trying to use this to find duplicates
+function sort(){
+	var sorted_arr=buildingArr.sort();
+
+	for (var i=0; i <buildingArr.length - 1; i++) {
+		if(sorted_arr[i+1] == sorted_arr[i]) {
+			results.push(sorted_arr[i]);
+		}
+	}
+	console.log(results+'blah');
+}
+
 //else if it is in not in buildingArr twice than add the index to buildingArr
 
 	//shuffle array
