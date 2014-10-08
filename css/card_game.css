@@ -43,16 +43,16 @@ game container is 744+margins*/
 	height:271px;
 }
 
-.back {
+/*.back {
 	z-index: 0;
 	display: none;
 }
 
-/*background image was not working. used "content"*/
+background image was not working. used "content"
 .front {
 	z-index: 1;
 	content: url(../img/card_back.jpg);
-}
+}*/
 
 .card-container .flipped {
 	-webkit-transform: rotateY(180deg);

@@ -5,95 +5,14 @@ var cardMatching = false;
 var clickEnabled = true;   //disables mid-animation clicks
 var cardPairs = 0;	//game won when this matches maxPairs
 var gameWon=false;
-
-
-
-/* data types
-	string = 'this is a string'
-	integer = 1, 2, 3
-	floats = 1.1, 2.2
-	arrays = [1,2,3]
-	objects = {a: 1, b: 2}
-	booleans = true, false
-	functions = function() {}
-	undefined
-	NaN
-
-
-	1 == "1" //true
-	1 === "1" //false
-	0 === false //false
-	0 == false //true
-*/
-
+var newCardArray = [];
+var cardMarkup = '';
 
 $(document).ready(function(){
 
 	buildCards();
 
 });
-
-//This explains the Array, Prototype Shuffle above, kind of.
-//Fisher-Yates shuffle https://www.youtube.com/watch?v=tLxBwSL3lPQ#t=12
-//putting it in the prototype shuffle you change all the "cardMatches"
-//to "this"
-Array.prototype.shuffle = function() {
-	var i = this.length, j, temp;
-
-	while ( --i > 0) {
-
-		j = Math.floor(Math.random() * (i+1));
-		temp = this[j];
-		this[j] = this[i];
-		this[i] = temp;
-	}
-	return this;
-}
-
-//DO NOT NEED THEBELOW ARRAY
-// var cardMatches = ['img/card0.jpg','img/card1.jpg','img/card2.jpg',
-// 				'img/card3.jpg','img/card4.jpg','img/card5.jpg'];
-// var result = cardMatches.shuffle();
-// console.log(result);
-//YEAH THIS FUCKING WORKS!!!!
-
-
-//maybe use a while loop to determine there are no more than 2 of any card
-//maybe build another array with the card indexes. 
-//recursive
-
-//what if I doubled up on the imgfiles array, copy and paste to create a new array
-
-//index of
-
-
-
-var imgFiles = [];
-
-function addCards(){
-
-//I don't need these two commented lines below right?
-	// imgFiles.shuffle();
-	// console.log("image array ("+imgFiles.length+" items) /// contents= "+imgFiles.toString());
-
-//this loop will add the number of cards up to "i"
-	for(i=0;i<12;i++) {
-//this is a ternary operator
-//what does the % mean in this operator?
-//the % gives you the remainder after a divided equation
-		//var cardNumber = i < 6 ? i : i % 6;
-		
-		//buildingArr.push(cardNumber);
-//will be the result of the number of the function you just wrote at the bottom
-
-		var cardNumber = randomizeCard();
-		var cardSet = '<div class="card-container"><div class="card"><div class="front"></div><div class="back"><img src="'+'img/card'+cardNumber+'.jpg"></div></div></div>';
-		
-		$('.wholegame').append(cardSet);
-		console.log("HTML appended: "+cardSet);
-	}	
-}
-
 
 //you can use this to keep the cards flipped for a certain amount of time
 
@@ -103,10 +22,12 @@ function addCards(){
 //     // Do stuff.
 // }
 
+// var imgFiles = [];
+
 function cardFlip(){
 	$('.card').click(function(){
 		cardClicks++;
-		
+
 		if(cardClicks<3){
 			$(this).find('.front').css('content', 'none');
 			$(this).find('.back').show();
@@ -114,56 +35,51 @@ function cardFlip(){
 	})
 };
 
+function addCards(){
+	
+	for(i=0;i<12;i++) {
 
-//keeping this right now, assuming I will have to do more in the future. 
+		getValidRandomNum(i);
+
+	}	
+}
+ 
+function getValidRandomNum(iterationNumber){
+
+		var randomNumber = Math.floor(Math.random()*6);
+		
+		var numOccurrences = getNumberOfOccurrences(randomNumber,newCardArray);
+
+		if (numOccurrences == 2){
+			getValidRandomNum(iterationNumber);
+		} else {
+			getValidRandomNumberFinished(iterationNumber, randomNumber);
+		}
+}
+
+function getValidRandomNumberFinished(iterationNumber, randomNumber) {
+
+	cardMarkup += '<div class="card-container"><div class="card"><div class="front"></div><div class="back"><img src="'+'img/card'+randomNumber+'.jpg"></div></div></div>';
+	newCardArray.push(randomNumber);
+
+	if(iterationNumber == 11) {
+		$('.wholegame').append(cardMarkup);
+	}
+}
+
+function getNumberOfOccurrences(searchValue, searchArray){
+
+	var numOccurrences = 0;
+
+	for (var i=0; i < searchArray.length; i++) {
+		if( searchValue	== searchArray[i]) {
+			numOccurrences++; 
+		}
+	}
+	return numOccurrences;
+}
+
 function buildCards(){
 	addCards();
 	cardFlip();
 }
-
-var buildingArr = []
-console.log(buildingArr+'haha');
-
-var numCards = 6
-
-var results = [];
-
-function randomizeCard(){
-	
-	for(var i=0; i<12; i++) {
-		//if ($.inArray(randomNumber, buildingArr) > 0) {
-			//randomizeCard();
-
-//make an if statement somewhere (NOT in the for loop), if the number is found in the sorted array twice
-//then run var randomnumber again
-//else push the randomNumber into the sorted_arr
-//once the sorted_arr reaches it's max length of 12, then shuffle it again and
-//call it buildingArr or another array?
-		var randomNumber = Math.floor(Math.random()*6);
-			console.log(randomNumber+'nooooo');
-			(buildingArr.push(randomNumber));
-		}
-		sort();
-}
-
-//trying to use this to find duplicates
-function sort(){
-	var sorted_arr=buildingArr.sort();
-
-	for (var i=0; i <buildingArr.length - 1; i++) {
-		if(sorted_arr[i+1] == sorted_arr[i]) {
-			results.push(sorted_arr[i]);
-		}
-	}
-	console.log(results+'blah');
-}
-
-//else if it is in not in buildingArr twice than add the index to buildingArr
-
-	//shuffle array
-	//pull one index out to fill the div
-	//use math.random here with the length of the array
-	//return the index of the random generated card
-	//build something to check the new array for 
-	//if not in arrayx2 add to array else run this function again
-
