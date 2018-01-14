@@ -1,10 +1,15 @@
 (function(){
     const startButton = document.querySelector('#start');
     const resetButton = document.querySelector('#reset');
+    const stopWatchContainer = document.querySelector('#stopWatch');
     let cardClicks = 0;  //prevent more than 2 clicks
 	let clickEnabled = true;   //disables mid-animation clicks
 	let cardPairs = 0;	//game won when this matches maxPairs
-	let gameWon=false;
+    let gameWon = false;
+    let isPlaying = false;
+    let seconds = 0;
+    let minutes = 0;
+    
 
 	// stores card mark up to be added to wholeGame innerHTML
 	let newCardArray = [];
@@ -21,8 +26,6 @@
 		5: 0
 	};
 	let totalCards = 0;
-
-
 
 	let wholeGame = document.querySelector('#wholeGame');
 
@@ -53,6 +56,10 @@
 	}
 
 	const buildCards = function(){
+        stopWatchContainer.innerHTML = `0 : 00`
+        seconds = 0;
+        minutes = 0;
+        isPlaying = true;
         while (wholeGame.firstChild) {
             wholeGame.removeChild(wholeGame.firstChild);
         }
@@ -62,7 +69,9 @@
 		}
 		newCardArray.map((card)=>{
 			wholeGame.innerHTML += card
-		})
+        })
+        
+        stopWatch();
 	}
 
 // limit it to two clicks at a time. just in case the user clicks around quickly
@@ -94,14 +103,36 @@
 
 		if (cardPairs === 6){
             gameWon = true
-            
+            isPlaying = false;
             setTimeout(()=>{
-                alert("You Win")
+                alert("You Win");
             }, 1000);
 			
 		}
 	}
-	
+
+    const stopWatch = () => {
+        if (isPlaying){
+            setTimeout(()=>{
+                if (seconds < 61){
+                    seconds++;
+                } else if (seconds === 60){
+                    seconds = 0;
+                    minutes++;
+                }
+                if (seconds < 10){
+                    stopWatchContainer.innerHTML = `${minutes} : 0${seconds}`
+                } else {
+                    stopWatchContainer.innerHTML = `${minutes} : ${seconds}`
+                }
+                if (isPlaying){
+                    stopWatch();
+                }
+            }, 1000);
+        }
+    };
+
     wholeGame.addEventListener('click', cardFlip);
-    startButton.addEventListener('click', buildCards);
+    startButton.addEventListener('click', buildCards); 
+    resetButton.addEventListener('click', buildCards);
 })();
